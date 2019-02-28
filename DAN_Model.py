@@ -391,9 +391,9 @@ def image_model_predict(input_image_filename, output_filename, img_height_size, 
     """
     
     with rasterio.open(input_image_filename) as f:
-        img = np.transpose(f.read(1), [1, 2, 0])
         metadata = f.profile
-    
+        img = np.transpose(f.read(tuple(np.arange(metadata['count']) + 1)), [1, 2, 0])
+     
     y_size = ((img.shape[0] // img_height_size) + 1) * img_height_size
     x_size = ((img.shape[1] // img_width_size) + 1) * img_width_size
     

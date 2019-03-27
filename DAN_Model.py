@@ -418,7 +418,7 @@ def image_model_predict(input_image_filename, output_filename, img_height_size, 
             preds = fitted_model.predict(img_holder)
             mask[i : i + img_height_size, j : j + img_width_size, 0] = preds[0, :, :, 0]
             
-    mask_complete = np.transpose(mask[0 : img.shape[0], 0 : img.shape[1], 0], [2, 0, 1])
+    mask_complete = np.transpose(np.expand_dims(mask[0 : img.shape[0], 0 : img.shape[1], 0], axis = 2), [2, 0, 1])
     
     if write:
         metadata['count'] = 1
